@@ -118,7 +118,7 @@ La configuration de la connexion se fait au niveau du fichier `app/config/config
     "database": {
         "host": "localhost",
         "user": "root",
-        "pwd":  null",
+        "pwd":  null,
         "name": "my_database"
     }
 }
