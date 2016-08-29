@@ -43,8 +43,6 @@ Fichier de config `app/config/config.json` :
     "commands": [
         "Command\/TestCommand"
     ],
-
-    ...
 }
 ```
 
@@ -93,18 +91,12 @@ class MyCustomService{
 Fichier de configuration des service `app/config/services.json` :
 ```json
 {
-
-    ...
-
     "service_name": {
         "class": "Service/MyCustomService",
         "arguments" : ["@connection"],
         "description": "Example of a simple service",
         "__comment__": "this service is a example, you can remove it and 'Service/MyCustomService.php' file too."
     },
-
-    ...
-
 }
 ```
 
@@ -138,8 +130,8 @@ Pour accéder au service il suffit d'appeler la méthode `get(String service_nam
     // the run function for a command
     public function run() {
         // ...
-
         $connection = $this->get('connection');
+        $connection->execute("SELECT * FROM Test;");
     }
 ```
 
