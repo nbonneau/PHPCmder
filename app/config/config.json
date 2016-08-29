@@ -1,0 +1,9 @@
+{
+    "commands": ["command\/TestCommand"],
+    "database": {
+        "host": "localhost",
+        "user": "root",
+        "pwd": "root",
+        "name": ""
+    }
+}

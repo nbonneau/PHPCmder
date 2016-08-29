@@ -1,0 +1,17 @@
+{
+    "name": "alexphillips/console",
+    "description": "Primer console package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alex Phillips",
+            "email": "exonintrendo@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Primer\\Console\\": ""
+        }
+    }
+}

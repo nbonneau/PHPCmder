@@ -1,0 +1,100 @@
+<?php
+
+// autoloader
+require_once __DIR__ . '/bootstrap.php';
+
+// Console class
+use Primer\Console\Console;
+use ConfigReader\ConfigReader;
+
+// const for dev env, if is TRUE, load demo command
+const __ENV__ = "DEV";
+
+// set unlimited executed time
+set_time_limit(0);
+
+//------------------------------------------------------------------------------
+try {
+    try {
+        // create new AppCommand instance
+        $app = new Console();
+
+        // load demo command if ENV_DEV is TRUE
+        if (__ENV__ == "DEV") {
+            loadDemoCommand($app);
+        }
+
+        loadCommands($app);
+
+        // run AppCommand
+        $app->run();
+
+        // exit command
+        exit(0);
+    } catch (\PDOException $e) {
+        throw new \Exception("Database usage failed: " . $e->getMessage());
+    }
+} catch (\Primer\Console\Exception $e) {
+    echo $e;
+}
+
+//------------------------------------------------------------------------------
+/**
+ * Load all demo commands from "Primer\Console\Command\Demo"
+ * 
+ * @param Console $app
+ */
+function loadDemoCommand(Console &$app) {
+    $basename = "Primer\Console\Command\Demo";
+
+    if (is_dir(__DIR__ . "\\..\\vendor\\" . $basename)) {
+        $files = scandir(__DIR__ . "\\..\\vendor\\" . $basename);
+        unset($files[0]);
+        unset($files[1]);
+
+        foreach ($files as $index => $filename) {
+            $files[$index] = $basename . "\\" . preg_replace('/\\.[^.\\s]{3,4}$/', '', $filename);
+        }
+
+        if (is_array($files)) {
+            addCommands($app, $files, true);
+        }
+    }
+}
+
+/**
+ * 
+ * @param Console $app
+ * @throws \Exception
+ */
+function loadCommands(Console &$app) {
+    
+    $config = ConfigReader::getJsonConfig();
+    
+    if(!isset($config['commands'])){
+        throw new \Exception("The \"commands\" config is missing into the config file.");
+    }
+    if(!is_array($config['commands'])){
+        throw new \Exception("The \"commands\" config must be an array of commands.");
+    }
+    
+    // add custom commands
+    addCommands($app, $config['commands']);
+}
+
+/**
+ * Add commands class to the available commands list
+ * 
+ * @param Console $app
+ * @param array $commands_class
+ */
+function addCommands(Console $app, array $commands_class, $demo = false) {
+    foreach ($commands_class as $command_class) {
+        //$command_class = str_replace("/", "\\", $command_class);
+        if (!$demo) {
+            require_once __DIR__ . "/../" . $command_class . ".php";
+        }
+	$command_class = str_replace("/", "\\", $command_class);
+        $app->addCommand(new $command_class);
+    }
+}

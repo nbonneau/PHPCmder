@@ -1,0 +1,8 @@
+{
+    "service_name": {
+        "class": "service/MyCustomService",
+        "arguments" : ["@connection"],
+        "description": "Example of a simple service",
+        "__comment__": "this service is a example, you can remove it and 'service/MyCustomService.php' file too."
+    }
+}
