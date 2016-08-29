@@ -110,9 +110,67 @@ Fichier de configuration des service `app/config/services.json` :
 
 PHPCmder met également à disposition des services par défaut :
 
-* _logger_ : permet de gérer un fichier de log pour la commande, voir [service logger documentation](http://todo.com)
 * _connection_ : permet de gérer une connexion à une base de donnée, voir [service connection documentation](http://todo.com)
+* _logger_ : permet de gérer un fichier de log pour la commande, voir [service logger documentation](http://todo.com)
+
+## Service connection
+
+Le service `connection` permet d'obtenir une connexion prés-configurée avec une base de données MySQL.
+
+### Configuration générale
+
+La configuration de la connexion se fait au niveau du fichier `app/config/config.json` : 
+
+```json
+{
+    "database": {
+        "host": "localhost",
+        "user": "root",
+        "pwd":  null",
+        "name": "my_database"
+    }
+}
+```
+
+Pour accéder au service il suffit d'appeler la méthode `get(String service_name)` depuis la méthode `run` d'une commande :
+```php
+
+    // the run function for a command
+    public function run() {
+        // ...
+
+        $connection = $this->get('connection');
+    }
+```
+
+Vous pouvez exécuter une requête en utilisant la méthode `execute(String query, array args = array(), String type = "select", boolean close = true)`.
+Par défaut la méthode `execute` ouvrir la connexion si nécessaire et la referme lorsque le paramètre "close" est à `TRUE`.
+
+La classe de la connexion à la base de donnée possède la méthode `openConnection()` permettant d'ouvrir la connexion à tout moment.
+
+### Configuration personnalisée par commande
+
+Ce framework offre la possibilité de configurer une connection à une base de données pour chaque commande si besoin.
+Pour cela, dans le fichier `app/config/config.json`, ajouter un noeud ayant pour clés le "nom" de la commande (pas le nom de la classe) : 
+```json
+{
+    "database": {
+        "host": "localhost",
+        "user": "root",
+        "pwd":  null,
+        "name": "my_database"
+    },
+    "test:cmd": {
+        "database": {
+            "host": "10.X.X.X",
+            "user": "root",
+            "pwd":  "root",
+            "name": "test_database_name"
+        }
+    }
+}
+```
 
 ## Service logger
 
-## Service connection
+// In development...
