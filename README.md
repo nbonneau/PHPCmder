@@ -11,6 +11,10 @@ Contrairement à Primer console, vous n'avez pas besoin de créer une applicatio
 
 Pour lancer l'application il suffit d'exécuter la command suivante depuis le répertoire racine de l'application : `php app/cmd [command_name]`
 
+## Architecture
+
+![archi_img](https://github.com/Decriptedk/PHPCmder/blob/master/archi_picture.JPG)
+
 # Créer une commande
 
 La création de commande est simplifier avec PHPCmder. Il vous suffit seulement de créer une classe dans le répertoire `Command` puis d'ajouter le chemin de la classe dans le fichier de configuration de l'application `app/config/config.json` afin que la commande soit reconnue.
