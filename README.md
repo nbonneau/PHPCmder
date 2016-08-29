@@ -106,8 +106,7 @@ Fichier de configuration des service `app/config/services.json` :
 
 PHPCmder met également à disposition des services par défaut :
 
-* _connection_ : permet de gérer une connexion à une base de donnée, voir [service connection documentation](http://todo.com)
-* _logger_ : permet de gérer un fichier de log pour la commande, voir [service logger documentation](http://todo.com)
+* _connection_ : permet de gérer une connexion à une base de donnée
 
 ## Service connection
 
@@ -167,6 +166,13 @@ Pour cela, dans le fichier `app/config/config.json`, ajouter un noeud ayant pour
 }
 ```
 
-## Service logger
+# Original Credits
 
-// In development...
+* Nicolas BONNEAU as main author.
+
+# License
+
+This bundle is released under the MIT license. See the complete license in the
+bundle:
+
+    Resources/meta/LICENSE
